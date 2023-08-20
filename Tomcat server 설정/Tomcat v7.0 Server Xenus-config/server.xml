@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener"/>
+  <Listener SSLEngine="on" className="org.apache.catalina.core.AprLifecycleListener"/>
+  <Listener className="org.apache.catalina.core.JasperListener"/>
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+
+  <GlobalNamingResources>
+    <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
+  </GlobalNamingResources>
+
+  <!-- xenus -->
+  <Service name="Catalina8">
+    <Connector acceptCount="100" connectionTimeout="20000" disableUploadTimeout="true" enableLookups="false" maxHttpHeaderSize="8192" maxThreads="150" minSpareThreads="25" port="8081" protocol="HTTP/1.1" redirectPort="8443"/>
+               
+    <Connector enableLookups="false" port="8009" protocol="AJP/1.3" redirectPort="8444"/> 
+                
+    <Engine defaultHost="localhost" name="Catalina08">
+        <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+        </Realm>
+
+        <Host appBase="webapps" autoDeploy="false" name="localhost" unpackWARs="false">
+	        <Alias>www.xenus.co.kr</Alias>
+	        <Alias>xenus.co.kr</Alias>
+    
+            <Valve className="org.apache.catalina.valves.AccessLogValve" directory="/logs/xenuslog" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="hts_access_log." suffix=".txt"/>
+        <Context docBase="Xenus" path="" reloadable="true" source="org.eclipse.jst.jee.server:Xenus"/></Host>
+        <Context aliases="/updn=d:\DevJava\updn" docBase="Xenus" path="" reloadable="true" source="org.eclipse.jst.jee.server:Xenus"/>		<!-- only for pc -->
+     </Engine>
+  </Service>
+  
+</Server>
