@@ -7,7 +7,7 @@
 -vm
 C:\Program Files (x86)\Java\jdk1.8.0_73\bin\javaw.exe 형태로 jdk 연결이 설정되어있습니다.)
 
-1- ms sql을 사용하여 db 파일을 연결하세요. (My sql 아닙니다!)
+1- ms sql을 사용하여 db 파일을 연결하세요.
 
 2 - Eclipse 이클립스의 JRE system Library [jdk1.8.0_73]을 사용하세요.
 
