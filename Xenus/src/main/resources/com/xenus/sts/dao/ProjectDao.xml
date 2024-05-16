@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- ProjectDao MAPPER -->
+  <mapper namespace="com.xenus.sts.dao.stsDao">
+
+  	<!-- login -->
+   	<select id="xenusLogin" parameterType="CommMap" resultType="CommMap">
+   			exec xenusLogin #{username}, #{password} 
+  	</select> 
+	  	
+  	<!-- get -->
+   	<select id="stsGetMember" parameterType="CommMap" resultType="CommMap">
+	   		exec stsGetMember #{kind}, #{memIndex} 
+  	</select>
+	  	
+   	<select id="stsGetProduct" parameterType="CommMap" resultType="CommMap">
+	   		exec stsGetProduct #{kind}, #{sellerId}, #{buyerId}, #{productIndex}, #{findSel}, #{findStr}
+  	</select>
+	  	
+   	<select id="stsGetProductAll" parameterType="CommMap" resultType="CommMap">
+	   		exec stsGetProductAll #{kind}, #{productIndex}
+  	</select>
+		
+   	<select id="stsGetCart" parameterType="CommMap" resultType="CommMap">
+	   		exec stsGetCart #{kind}, #{sellerId}, #{buyerId} 
+  	</select>
+		
+   	<select id="stsGetSold" parameterType="CommMap" resultType="CommMap">
+	   		exec stsGetSold #{kind}, #{sellerId}, #{buyerId} 
+  	</select>
+		
+   	<select id="stsGetProductUnSold" parameterType="CommMap" resultType="CommMap">
+	   		exec stsGetProductUnSold #{kind}, #{productIndex}
+  	</select>
+		
+   	<select id="stsGetWish" parameterType="CommMap" resultType="CommMap">
+	   		exec stsGetWish #{kind}, #{buyerId} 
+  	</select>
+  	
+  	<!-- set -->
+   	<select id="stsSetMemberIns" parameterType="CommMap" resultType="Returns">
+	   		exec stsSetMemberIns #{id}, #{password}, #{memberType}, #{name}, #{email}
+  	</select>
+  	
+  	<select id="stsSetMemberMod" parameterType="CommMap" resultType="Returns">
+			exec stsSetMemberMod  #{kind}, #{memIndex}, #{id}, #{name}, #{memberType}, #{email}
+  	</select>
+  	
+  	<select id="stsSetProductIns" parameterType="CommMap" resultType="Returns">
+			exec stsSetProductIns  #{name}, #{price}, #{tradingPrice}, #{image}, #{keywords}, #{description}, #{phoneNumber}, #{regId}
+  	</select>
+	  	
+  	<select id="stsSetProductMod" parameterType="CommMap" resultType="Returns">
+			exec stsSetProductMod   #{productIndex}, 
+									#{kind}, 
+									#{name1}, 
+									#{price}, 
+									#{tradingPrice},
+									#{image11}, 
+									#{keywords}, 
+									#{description}, 
+									#{productNumber},
+									#{phoneNumber}
+  	</select>
+	
+  	<select id="stsSetCartIns" parameterType="CommMap" resultType="Returns">
+			exec stsSetCartIns  #{sellerId}, #{sellerName}, #{productIndex}, #{productName}, #{price}, #{tradingPlace}, #{buyerId}, #{buyerName}, #{phoneNumber}, #{biddingPrice}
+  	</select>
+	
+  	<select id="stsSetCartMod" parameterType="CommMap" resultType="Returns">
+			exec stsSetCartMod  #{kind}, #{cartIndex}, #{biddingPrice}, #{phoneNumber}, #{tradingPlace}
+  	</select>
+	
+  	<select id="stsSetSoldIns" parameterType="CommMap" resultType="Returns">
+			exec stsSetSoldIns  #{cartIndex}
+  	</select>
+	
+  	<select id="stsSetWishIns" parameterType="CommMap" resultType="Returns">
+			exec stsSetWishIns  #{memberIndex}, #{productIndex}
+  	</select>
+	
+  	<select id="stsSetWishMod" parameterType="CommMap" resultType="Returns">
+			exec stsSetWishMod  #{kind}, #{wishIndex}
+  	</select>  	
+
+  </mapper>
+  

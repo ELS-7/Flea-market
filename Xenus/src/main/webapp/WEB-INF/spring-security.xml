@@ -1,0 +1,60 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/security
+				http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+				
+				
+	<!-- logout -->
+	<http pattern="/com/logout"		security="none" />
+	
+	
+	<!-- enable use-expressions -->
+	<http name="xenus" auto-config="true" use-expressions="true">
+		<intercept-url pattern="/resources/**"     		access="permitAll"/>
+		<intercept-url pattern="/com/**"    			access="permitAll"/>
+		<intercept-url pattern="/market/home"    		access="permitAll"/>
+		<intercept-url pattern="/market/signup"    		access="permitAll"/>
+		<intercept-url pattern="/market/addMember" 		access="permitAll"/>
+		<intercept-url pattern="/market/downloadFile" 	access="permitAll"/>
+		
+		<intercept-url pattern="/market/**"         access="hasAnyRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/updn/**"      		access="hasAnyRole('ROLE_ADMIN')"/>
+	 	
+		<!-- access denied page -->
+		<access-denied-handler error-page="/com/403" />
+
+		<!-- login -->
+		<form-login 
+		    login-page="/com/login?param=needLogin"
+			username-parameter="username"
+			password-parameter="password"
+			authentication-success-handler-ref="xenusAuthenticationSuccessHandler"
+			authentication-failure-handler-ref="xenusAuthenticationFailureHandler"/>
+		
+		<!-- logout -->	
+		<logout invalidate-session="true" />
+
+		<!-- csrF protection --> 
+		<!-- <csrf/> -->
+		<csrf disabled="true"/>
+		
+		<!-- session -->
+		<!-- not use: invalid-session-url="/com/login?param=expired -->
+		<session-management>
+			<concurrency-control max-sessions="1" expired-url="/com/login?param=concurrent" />
+		</session-management>
+
+	</http>
+	
+	
+	 <!-- Security Processing -->
+	<authentication-manager alias="authenticationManager">
+			<authentication-provider ref="authenticationProvider"/>
+			<authentication-provider user-service-ref="xenusUserLoginService" />
+	</authentication-manager>
+	
+	 
+</beans:beans>

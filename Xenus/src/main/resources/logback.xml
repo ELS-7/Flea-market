@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<configuration>
+	<!-- debug, info, warn, error, fatal -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%-5level] %-36logger{36}  %msg%n</pattern> 
+		</encoder>
+	</appender>
+
+	<appender name="fileout" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<param name="file" 	 value="${catalina.home}/logs/stslog/sts.log" />
+        
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        	<param name="fileNamePattern" value="${catalina.home}/logs/stslog/sts-%d{yyyyMMdd}.log" />
+        	<param name="maxHistory"      value="31" />
+        	
+        	<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+    		</timeBasedFileNamingAndTriggeringPolicy>
+    		
+		</rollingPolicy>
+		
+    	<encoder>
+			<pattern>%d [%-5level] %-36logger{36}  %msg%n</pattern> 
+		</encoder>
+    </appender>
+    
+	<logger name="org.apache.ibatis"    				level="debug"></logger>
+	<logger name="org.apache.ibatis.io.ResolverUtil" 	level="info" ></logger>	<!-- info -->
+	<logger name="org.mybatis.spring"    				level="info" ></logger>	<!-- info -->
+	<logger name="com.venus.sts.service" 				level="info" ></logger>	<!-- info -->
+	<logger name="com.venus.sts.web"     				level="info" ></logger>	<!-- info -->
+	<logger name="com.venus.sts.dao"     				level="debug"></logger>
+	<logger name="com.venus.sts.dao.paddao"				level="info" ></logger>	<!-- info -->
+	<logger name="com.venus.sts.dao.stsdao.venusLogin"	level="info" ></logger>	<!-- info -->
+	
+	<root level="info">
+		<appender-ref ref="fileout"/>
+	</root>	
+		
+	<root level="debug">
+		<appender-ref ref="stdout"/>
+	</root>
+	
+</configuration>
